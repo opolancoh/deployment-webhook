@@ -1,6 +1,12 @@
-@DeploymentWebhook_HostAddress = http://localhost:5086
+@HostAddress = http://localhost:5086
 
-GET {{DeploymentWebhook_HostAddress}}/weatherforecast/
+POST {{HostAddress}}/api/github
+Content-Type: application/json
+Authorization: Bearer abc123
 Accept: application/json
+
+{
+  "sample": "payload"
+}
 
 ###
