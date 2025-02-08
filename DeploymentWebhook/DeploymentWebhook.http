@@ -1,6 +1,11 @@
-@HostAddress = http://localhost:5086
+@host = http://localhost:5086
 
-POST {{HostAddress}}/api/github
+GET {{host}}/health
+Accept: application/json
+
+###
+
+POST {{host}}/api/github
 Content-Type: application/json
 Authorization: Bearer abc123
 Accept: application/json

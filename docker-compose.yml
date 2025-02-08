@@ -1,0 +1,25 @@
+services:
+  api:
+    build: .
+    container_name: deployment-webhook-api
+    
+    ports:
+      - "${API_PORT:-5086}:${API_PORT:-5086}"
+      - "${HTTPS_PORT:-7288}:${HTTPS_PORT:-7288}"
+    
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}
+      - ASPNETCORE_URLS=http://+:${API_PORT:-5086};https://+:${HTTPS_PORT:-7288}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${MYDOTNETCERT_CERT_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/my-dotnet-cert.pfx
+    
+    volumes:
+      - ${MYDOTNETCERT_CERT_PATH}:/https:ro
+    
+    networks:
+      - deployment-webhook-network
+
+networks:
+  deployment-webhook-network:
+    external: true
+
